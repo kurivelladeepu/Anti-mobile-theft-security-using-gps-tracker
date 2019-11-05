@@ -1,0 +1,439 @@
+ckage com.mode;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+public class SplashUI extends Activity {
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.firstsplash);
+Thread runnerlog=new Thread()
+        {
+	public void run()
+	{
+		try
+		{                 
+			int logoTimer=0;
+			while(logoTimer<2000)
+			{
+				sleep(100);  
+				logoTimer=logoTimer+100;
+			}
+			//startActivity(new Intent("com.mode.HowTo"));
+			Intent i=new Intent(SplashUI.this,HowTo.class);
+			startActivity(i);
+			
+		}catch (Exception e) {
+					// TODO: handle exception
+			e.printStackTrace();
+				}finally
+				{
+					finish();
+				}
+	}
+	        };
+
+        runnerlog.start();
+    }
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unbindDrawables(findViewById(R.id.lll));
+	System.gc();
+	}
+private void unbindDrawables(View view) {
+	    if (view.getBackground() != null) {
+	    view.getBackground().setCallback(null);
+	    }
+	    if (view instanceof ViewGroup) {
+	        for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+	        unbindDrawables(((ViewGroup) view).getChildAt(i));
+	        }
+	    ((ViewGroup) view).removeAllViews();
+	    }
+	   }}
+
+Howto.xml
+<?xmlversion="1.0"encoding="utf-8"?>
+
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/scrollView1"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="@drawable/b2"
+>
+<LinearLayout
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:orientation="vertical"
+android:layout_marginLeft="6px"
+android:layout_marginRight="6px"
+>
+<TextViewandroid:text="How to use this app"
+android:id="@+id/tView121"
+android:textColor="#ffffff"
+android:textStyle="bold"
+android:textSize="20px"
+android:layout_gravity="center"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginTop="6px"
+android:layout_marginBottom="15px"
+></TextView>
+<TextViewandroid:text="@string/s1"
+android:id="@+id/tView1"
+android:textStyle="bold"
+android:textSize="15px"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android: layout_marginLeft="10px"
+android:layout_marginRight="10px"></TextView>
+<TextViewandroid:text="@string/howtotext1"
+android:id="@+id/tView1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="10px"
+android:layout_marginRight="10px"></TextView>
+<View
+android:layout_marginTop="6px"
+android:layout_marginBottom="6px"
+android:layout_marginLeft="10px"
+android:layout_marginRight="10px"
+android:background="#C2DFFF"
+android:layout_height="1dip"
+android:layout_width="fill_parent"
+/>
+<TextViewandroid:text="@string/s3i"
+android:id="@+id/tView1"
+android:textStyle="bold"
+android:textSize="15px"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="10px"
+android:layout_marginRight="10px"></TextView>
+<TextViewandroid:text="@string/s3id"
+android:id="@+id/tView1"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="10px"
+android:layout_marginRight="10px"></TextView>
+<Buttonandroid:layout_width="fill_parent"
+android:id="@+id/startb"android:text="Start App"
+android:layout_marginTop="10px"
+android:layout_marginBottom="10px"
+android:layout_height="50px"></Button>
+</LinearLayout>
+</ScrollView>
+
+HowTo.java
+package com.mode;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.Button;
+public class HowTo extends Activity {
+	 public void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);  
+	        setContentView(R.layout.howto);
+	        Button b=(Button)findViewById(R.id.startb);
+	        b.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent it=new Intent(HowTo.this,main.class);
+					startActivity(it);
+				}
+			});
+	 }
+}
+
+Main.xml
+<?xmlversion="1.0"encoding="utf-8"?>
+<TableLayoutandroid:id="@+id/TableLayout01"
+android:background="@drawable/bc"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+xmlns:android="http://schemas.android.com/apk/res/android">
+<TableRowandroid:id="@+id/TableRow01"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<TextViewandroid:text="SwitchTo Silent"
+android:id="@+id/uname"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+</TextView>
+<EditTextandroid:text=""
+android:id="@+id/silent"
+android:layout_width="180dip"
+android:layout_height="wrap_content"
+>
+</EditText>
+</TableRow>
+<TableRowandroid:id="@+id/TableRow02"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<TextViewandroid:text="SwitchTo Ring"
+android:id="@+id/pass"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+</TextView>
+<EditTextandroid:text=""
+android:id="@+id/ring"
+android:layout_width="180dip"
+android:layout_height="wrap_content">
+</EditText>
+</TableRow>
+<TableRowandroid:id="@+id/TableRow03"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<TextViewandroid:text="SwitchTo Vibrate"
+android:id="@+id/vibr"
+android:layout_width="180dip"
+android:layout_height="wrap_content">
+</TextView>
+<EditTextandroid:text=""
+android:id="@+id/vibrate"
+android:layout_width="180dip"
+android:layout_height="wrap_content">
+</EditText>
+</TableRow>
+<TableRowandroid:id="@+id/TableRow06"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<AbsoluteLayout
+android:id="@+id/AbsoluteLayout01"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+<Buttonandroid:text="Save"
+android:layout_x="120px"
+android:layout_y="30px"
+android:id="@+id/Save"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content">
+</Button>
+
+</AbsoluteLayout>
+</TableRow>
+</TableLayout>
+
+Main.java
+package com.mode;
+import java.io.IOException;
+import java.util.ArrayList;
+import android.app.Activity;
+import android.content.Context;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+public class main extends Activity {
+	Dbhandler myDbHelper;
+	SQLiteDatabase Mydatabase;
+	ArrayList<String> aa;
+    EditText silent,ring,vibrate;
+    Button save;
+	
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        silent=(EditText)findViewById(R.id.silent);
+        ring=(EditText)findViewById(R.id.ring);
+        vibrate=(EditText)findViewById(R.id.vibrate);
+        save=(Button)findViewById(R.id.Save);
+        this.myDbHelper=new Dbhandler(this);
+		FetchingData();
+		Mydatabase=myDbHelper.getReadableDatabase();
+		aa=this.myDbHelper.getModes(Mydatabase);
+		System.out.println("values of Db      "+aa);
+		String s1= aa.toString();
+		s1=s1.substring(1, s1.length()-1);
+		//s1=s1.replace("", newChar)
+		String[] s=s1.split(",");
+	silent.setText(s[0]);
+            ring.setText(s[1]);
+            vibrate.setText(s[2]);
+           save.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				String stxt=silent.getText().toString();
+				String rtxt=ring.getText().toString();
+				String vtxt=vibrate.getText().toString();
+				if(stxt.equals("") || rtxt.equals("") || vtxt.equals(""))
+				{
+					
+					 Toast.makeText(getApplicationContext(), "Please fill all fields", 60).show();
+					
+				}
+				else
+				{
+					/*Context context = getApplicationContext();
+	                CharSequence error = "Please enter a track name" +stxt;
+	                int duration = Toast.LENGTH_LONG;
+
+	                Toast toast = Toast.makeText(context, error, duration);
+	                toast.show();*
+					  myDbHelper=new Dbhandler(main.this);
+						 FetchingData();
+						Mydatabase=myDbHelper.getReadableDatabase();
+						Mydatabase.execSQL("update mode set text='"+stxt+"' where Mode='silent'");
+						System.out.println("^^^^^^^^^^^^^^^ inserted value is   "+stxt);
+						Mydatabase.execSQL("update mode set text='"+rtxt+"' where Mode='ring'");
+						Mydatabase.execSQL("update mode set text='"+vtxt+"' where Mode='vibrate'");
+						Toast.makeText(getApplicationContext(), stxt, 70).show();
+				}
+			}
+			});
+    }
+    private void FetchingData() {
+		// TODO Auto-generated method stub
+		 try {  
+					myDbHelper.onCreateDataBase();
+			
+				} catch (IOException ioe) {
+			throw new Error("Unable to create database");
+		} 
+		try {
+	
+			myDbHelper.openDataBase();
+			Mydatabase = myDbHelper.getWritableDatabase();
+			System.out.println("executed");
+				}catch(SQLException sqle){
+			throw sqle;
+			}
+		// TODO Auto-generated method stub
+	}
+}
+
+Broadcast.java
+package com.mode;
+import java.io.IOException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
+import android.os.Bundle;
+import android.telephony.SmsMessage;
+import android.util.Log;
+import android.widget.Toast;
+public class Broadcast extends BroadcastReceiver {
+	// private ITelephony telephonyService;
+	 private static final String SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
+     private static final String TAG = "SMSBroadcastReceiver";
+     Dbhandler myDbHelper;
+     private AudioManager maudio;
+	SQLiteDatabase Mydatabase;
+	 SQLiteDatabase db;
+	Context context = null;
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		// TODO Auto-generated method stub
+		 Log.i(TAG, "Intent recieved: " + intent.getAction());
+		 maudio=(AudioManager)context.getSystemService(context.AUDIO_SERVICE);
+         if (intent.getAction().equals(SMS_RECEIVED)) {
+             Bundle bundle = intent.getExtras();
+             if (bundle != null) {
+	  Log.i(TAG, "Message recieved: ");
+                 Object[] pdus = (Object[])bundle.get("pdus");
+                 final SmsMessage[] messages = new SmsMessage[pdus.length];
+                 for (int i = 0; i < pdus.length; i++) {
+                     messages[i] = SmsMessage.createFromPdu((byte[])pdus[i]);
+                     System.out.println("message is.."+messages[i]);
+                     Log.i(TAG, "Message recieved: " + messages[0].getMessageBody());
+                     String mode=messages[0].getMessageBody();
+                     System.out.println("message body is.."+mode);
+                     String m_mode=getMode(mode,context);
+                     System.out.println("mode is...."+m_mode);
+                     changemode(m_mode);
+                 }
+                 if (messages.length > -1) {
+                     Log.i(TAG, "Message recieved: " + messages[0].getMessageBody());
+                 }
+             }}
+         else
+         {
+	  Log.i(TAG, "in else... ");
+         }
+	}
+	private void changemode(String m_mode) {
+		// TODO Auto-generated method stub
+		 if(m_mode.equals("silent"))
+         {
+		System.out.println("The phone state is changing to silent mode");
+			// int n=maudio.getRingerMode();
+			// System.out.println("The phone state is changing to silent mode "+n);
+	  maudio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+	  Log.i(TAG, "Changed to Silent");
+         }
+         else if(m_mode.equals("ring"))
+         {
+	 System.out.println("The phone state is changing to ring mode");
+	   maudio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+	   Log.i(TAG, "Changed to Ring ");
+         }
+         else if(m_mode.equals("vibrate"))
+         {
+	 System.out.println("The phone state is changing to vibrate mode");
+	  maudio.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+	  Log.i(TAG, "Changed to Vibrate");
+         }
+         else if(m_mode.equals("") || m_mode==null)
+         {
+	 Log.i(TAG, "Other message Recieved...");
+	// Toast.makeText(context,"Other message Recieved...",Toast.LENGTH_LONG).show();
+         }	
+	}
+	private String getMode(String mode,Context context) {
+		// TODO Auto-generated method stub
+		String m="";
+		this.myDbHelper=new Dbhandler(context);
+		FetchingData();
+		System.out.println("inside getmodde");
+	   Mydatabase=myDbHelper.getReadableDatabase();
+	   Cursor c=Mydatabase.rawQuery("SELECT Mode FROM mode where text='"+mode+"' ", null);
+	   System.out.println("cursor is.."+c);
+	   c.moveToFirst();
+	   if(c!=null){
+		   int i=c.getColumnIndex("Mode");
+		   System.out.println("column index is.."+i);
+		  m =c.getString(i).toString();
+		  System.out.println("mode in getmode.."+m);
+	   }return m;
+	}
+	private void FetchingData() {
+		// TODO Auto-generated method stub
+		 try {  	
+		myDbHelper.onCreateDataBase();	
+		} catch (IOException ioe) {
+			throw new Error("Unable to create database");
+		} 
+		try {
+			myDbHelper.openDataBase();
+			db  = myDbHelper.getReadableDatabase();
+			System.out.println("executed");
+				}catch(SQLException sqle){
+			throw sqle;
+		}
+		// TODO Auto-generated method stu	
+	}
+}
+ 
